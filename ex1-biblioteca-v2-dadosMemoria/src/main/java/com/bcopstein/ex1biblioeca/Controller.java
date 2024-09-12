@@ -57,4 +57,10 @@ public class Controller {
         }
         return livrosAno;
     }
+
+    @PostMapping("")
+    @CrossOrigin(origins = "*")
+    public String adicionarLivro(@RequestParam Livro livro) {
+        return record.addLivro(livro);
+    }
 }
