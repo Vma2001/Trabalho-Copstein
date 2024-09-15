@@ -3,15 +3,14 @@ package com.bcopstein.ex1biblioeca;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class Controller {
     private Record record;
-
-    public Controller(Record record1) {this.record = record1;}
-
-    public Controller(){}
+@Autowired
+    public Controller(Record record) {this.record = record;}
 
     @GetMapping("")
     @CrossOrigin(origins = "*")
@@ -19,10 +18,10 @@ public class Controller {
         return "Bem vindo a biblioteca central!";
     }
 
-    @GetMapping("livros")
+    @GetMapping("/livros")
     @CrossOrigin(origins = "*")
     public List<Livro> getListaLivros() {
-        return record.getLivros();
+        return this.record.getLivros();
     }
 
     @GetMapping("autores")

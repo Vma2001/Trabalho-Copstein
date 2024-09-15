@@ -1,23 +1,27 @@
 package com.bcopstein.ex1biblioeca;
 
-import org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
-import java.sql.JDBCType;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
-public class Record {
+@Service
+public class Record implements RecordRepository {
 private JdbcTemplate jdbcTemplate;
     public Record(JdbcTemplate jdbcTemplate1) {
         this.jdbcTemplate = jdbcTemplate1;
     }
 
     public List<Livro> getLivros() {
-        List<Livro> livros = jdbcTemplate.
+        return jdbcTemplate.query("SELECT * from livros",
+                (rs, rowNum)
+                -> new Livro(rs.getInt("codigo"),
+                rs.getString("titulo"),
+                rs.getString("autor"),
+                rs.getInt("ano")));
 
     }
 
-    public boolean add(Livro livro){return livros.add(livro);}
+   // public boolean add(Livro livro){return jdbcTemplate.update(livro);}
 }
