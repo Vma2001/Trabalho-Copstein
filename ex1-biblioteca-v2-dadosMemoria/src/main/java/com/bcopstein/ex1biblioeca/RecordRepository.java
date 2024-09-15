@@ -3,5 +3,8 @@ package com.bcopstein.ex1biblioeca;
 import java.util.List;
 
 public interface RecordRepository {
-    public List<Livro> getLivros();
+    List<Livro> getLivros();
+    List<Usuario> getUsuarios();
+    void cadastrarUsuario(Usuario usuario);
 }
+

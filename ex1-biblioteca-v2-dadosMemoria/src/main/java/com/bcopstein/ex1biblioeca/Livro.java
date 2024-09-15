@@ -5,12 +5,22 @@ public class Livro {
     private String titulo;
     private String autor;
     private int ano;
+    private int codigoUsuario;
+
+    public Livro(int id, String titulo, String autor, int ano, int codigoUsuario) {
+        this.id = id;
+        this.titulo = titulo;
+        this.autor = autor;
+        this.ano = ano;
+        this.codigoUsuario = codigoUsuario;
+    }
 
     public Livro(int id, String titulo, String autor, int ano) {
         this.id = id;
         this.titulo = titulo;
         this.autor = autor;
         this.ano = ano;
+        this.codigoUsuario = -1;
     }
 
     public int getId() {
@@ -27,6 +37,18 @@ public class Livro {
 
     public int getAno() {
         return ano;
+    }
+
+    public int getCodigoUsuario() {
+        return codigoUsuario;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public void setCodigoUsuario(int codigoUsuario) {
+        this.codigoUsuario = codigoUsuario;
     }
 
     @Override

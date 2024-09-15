@@ -24,6 +24,10 @@ public class Controller {
         return this.record.getLivros();
     }
 
+    @GetMapping("/usuarios")
+    @CrossOrigin(origins = "*")
+    public List<Usuario> getListaUsuarios() {return this.record.getUsuarios();}
+
     @GetMapping("autores")
     @CrossOrigin(origins = "*")
     public List<String> getListaAutores() {
@@ -55,5 +59,48 @@ public class Controller {
             }
         }
         return livrosAno;
+    }
+
+    @GetMapping("/livros/disponiveis")
+    @CrossOrigin(origins = "*")
+    public List<Livro> getLivrosDisponiveis() {
+        return record.getLivrosDisponiveis();
+    }
+
+    @GetMapping("/livros/emprestados/{codigoUsuario}")
+    @CrossOrigin(origins = "*")
+    public List<Livro> getLivrosEmprestadosPorUsuario(@PathVariable int codigoUsuario) {
+        return record.getLivrosEmprestadosPorUsuario(codigoUsuario);
+    }
+
+    @PostMapping("/livros/{id}/retirar")
+    @CrossOrigin(origins = "*")
+    public String retirarLivro(@PathVariable int id, @RequestParam int codigoUsuario) {
+        Livro livro = record.getLivroPorId(id);
+        if (livro.getCodigoUsuario() == -1) {
+            record.atualizarCodigoUsuarioLivro(id, codigoUsuario);
+            return "Livro retirado com sucesso!";
+        } else {
+            return "O livro já está emprestado.";
+        }
+    }
+
+    @PostMapping("/livros/{codigo}/devolver")
+    @CrossOrigin(origins = "*")
+    public String devolverLivro(@PathVariable int codigo, @RequestParam int codigoUsuario) {
+        Livro livro = record.getLivroPorId(codigo);
+        if (livro.getCodigoUsuario() == codigoUsuario) {
+            record.atualizarCodigoUsuarioLivro(codigo, -1);
+            return "Livro devolvido com sucesso!";
+        } else {
+            return "Este livro não foi retirado por esse usuário.";
+        }
+    }
+
+    @PostMapping("/usuarios")
+    @CrossOrigin(origins = "*")
+    public String cadastrarUsuario(@RequestBody Usuario usuario) {
+        record.cadastrarUsuario(usuario);
+        return "Usuário cadastrado com sucesso!";
     }
 }
