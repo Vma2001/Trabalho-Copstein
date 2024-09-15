@@ -20,14 +20,14 @@ public class Controller {
 
     @GetMapping("/livros")
     @CrossOrigin(origins = "*")
-    public List<Livro> getListaLivros() {
+    public List<livros> getListaLivros() {
         return this.record.getLivros();
     }
 
     @GetMapping("autores")
     @CrossOrigin(origins = "*")
     public List<String> getListaAutores() {
-        List<Livro>livros  = record.getLivros();
+        List<livros>livros  = record.getLivros();
         return livros.stream()
                 .map(l -> l.getAutor())
                 .distinct()
@@ -37,7 +37,7 @@ public class Controller {
     @GetMapping("titulos")
     @CrossOrigin(origins = "*")
     public List<String> getListaTitulos() {
-        List<Livro>livros  = record.getLivros();
+        List<livros>livros  = record.getLivros();
         return livros.stream()
                 .map(l -> l.getTitulo())
                 .toList();
@@ -45,11 +45,11 @@ public class Controller {
 
     @GetMapping("PorAno")
     @CrossOrigin(origins = "*")
-    public List<Livro> getLivrosPorAno(@RequestParam int ano) {
-        List<Livro>livros  = record.getLivros();
-        List<Livro> livrosAno = new LinkedList<>();
+    public List<livros> getLivrosPorAno(@RequestParam int ano) {
+        List<livros>livros  = record.getLivros();
+        List<com.bcopstein.ex1biblioeca.livros> livrosAno = new LinkedList<>();
 
-        for (Livro l : livros) {
+        for (com.bcopstein.ex1biblioeca.livros l : livros) {
             if (l.getAno() == ano) {
                 livrosAno.add(l);
             }
